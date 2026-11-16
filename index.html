@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="전파법규 100">
+<meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14171c" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
+<title>전파법규 예상문제 100</title>
+<style>
+:root{
+  --bg:#f6f7f9; --card:#ffffff; --text:#1d2330; --muted:#636b7a; --line:#e2e5ea;
+  --accent:#2f5bd3; --accent-soft:#e8eefc; --on-accent:#ffffff;
+  --ok:#1f8a4c; --ok-soft:#e5f4ea; --bad:#c43c3c; --bad-soft:#fbe9e9;
+  --chip:#eef0f4; --shadow:0 1px 2px rgba(0,0,0,.05);
+  --safe-t:env(safe-area-inset-top,0px); --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px); --safe-r:env(safe-area-inset-right,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#14171c; --card:#1d2128; --text:#e9ebef; --muted:#9aa2b1; --line:#2c323c;
+    --accent:#7c9cff; --accent-soft:#232c45; --on-accent:#0e1220;
+    --ok:#57c785; --ok-soft:#1b3326; --bad:#ff7b7b; --bad-soft:#3a2224;
+    --chip:#262b34; --shadow:none;
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  font-size:17px;line-height:1.55}
+button,select{font:inherit;touch-action:manipulation}
+.wrap{max-width:720px;margin:0 auto;
+  padding:0 calc(16px + var(--safe-r)) calc(24px + var(--safe-b)) calc(16px + var(--safe-l))}
+body.single .wrap{padding-bottom:calc(96px + var(--safe-b))}
+
+/* 상단 고정 바 */
+.top{position:sticky;top:0;z-index:10;background:var(--bg);
+  padding:calc(10px + var(--safe-t)) 0 10px;border-bottom:1px solid var(--line)}
+.title-row{display:flex;align-items:center;gap:10px}
+h1{font-size:1.12rem;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.icon-btn{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;
+  min-height:40px;padding:0 12px;font-size:.88rem;cursor:pointer}
+.stats{display:flex;gap:12px;font-size:.86rem;color:var(--muted);margin-top:6px;flex-wrap:wrap}
+.stats b{color:var(--text)}
+.stats .ok b{color:var(--ok)} .stats .bad b{color:var(--bad)}
+.bar{height:5px;background:var(--line);border-radius:3px;margin:8px 0 10px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  margin:0 calc(-16px - var(--safe-r)) 0 calc(-16px - var(--safe-l));padding:0 calc(16px + var(--safe-r)) 2px calc(16px + var(--safe-l))}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;
+  min-height:38px;padding:0 14px;font-size:.88rem;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
+select.sec{width:100%;margin-top:8px;min-height:42px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--text);padding:0 12px;font-size:16px;appearance:none;-webkit-appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 18px) 50%,calc(100% - 12px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+
+/* 문제 카드 */
+.sec-title{margin:22px 2px 6px;font-size:.92rem;color:var(--muted);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;box-shadow:var(--shadow)}
+.meta{display:flex;justify-content:space-between;gap:8px;font-size:.78rem;color:var(--muted);margin-bottom:6px}
+.q{font-weight:650;font-size:1.04rem;line-height:1.5;word-break:keep-all;overflow-wrap:anywhere}
+.q .num{color:var(--accent);margin-right:4px}
+.opts{display:grid;gap:9px;margin-top:14px}
+.opt{width:100%;text-align:left;min-height:52px;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);
+  background:transparent;color:var(--text);cursor:pointer;display:flex;gap:10px;align-items:flex-start;
+  font-size:1rem;line-height:1.45;word-break:keep-all;overflow-wrap:anywhere}
+.opt:active:not(:disabled){background:var(--accent-soft);border-color:var(--accent)}
+@media (hover:hover){.opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}}
+.opt:disabled{cursor:default;opacity:1}
+.opt .m{flex:none;font-weight:700;width:1.3em}
+.opt.correct{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.exp{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--chip);font-size:.94rem;word-break:keep-all;overflow-wrap:anywhere}
+.exp.show{display:block}
+.verdict{display:block;font-weight:700;margin-bottom:4px}
+.verdict.ok{color:var(--ok)} .verdict.bad{color:var(--bad)}
+.ref{display:block;margin-top:6px;font-size:.82rem;color:var(--muted)}
+.empty{color:var(--muted);text-align:center;padding:48px 0}
+
+/* 한 문제씩 모드 하단 바 */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--card);border-top:1px solid var(--line);
+  padding:10px calc(16px + var(--safe-r)) calc(10px + var(--safe-b)) calc(16px + var(--safe-l));display:none}
+body.single .nav{display:block}
+.nav-in{max-width:720px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.nav button{flex:1;min-height:52px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:1rem;font-weight:600;cursor:pointer}
+.nav button.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.nav button:disabled{opacity:.4}
+.nav .pos{flex:none;min-width:70px;text-align:center;font-size:.9rem;color:var(--muted)}
+
+/* 숫자 모음 */
+details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 16px;margin:18px 0}
+summary{cursor:pointer;font-weight:650;min-height:28px}
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px}
+td{border-top:1px solid var(--line);padding:9px 4px;vertical-align:top;word-break:keep-all}
+td:last-child{font-weight:650;text-align:right;padding-left:10px}
+.note{font-size:.8rem;color:var(--muted);margin:18px 2px}
+@media print{.top,.nav{display:none}.exp{display:block}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="wrap" style="padding-bottom:0">
+    <div class="title-row">
+      <h1>전파법규 예상문제 100</h1>
+      <button class="icon-btn" id="viewBtn">목록으로</button>
+    </div>
+    <div class="stats">
+      <span>푼 문제 <b id="sDone">0</b>/<span id="sTotal">100</span></span>
+      <span class="ok">정답 <b id="sOk">0</b></span>
+      <span class="bad">오답 <b id="sBad">0</b></span>
+      <span>정답률 <b id="sRate">-</b></span>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="chips">
+      <button class="chip on" data-mode="all">전체</button>
+      <button class="chip" data-mode="todo">안 푼 문제</button>
+      <button class="chip" data-mode="wrong">틀린 문제</button>
+      <button class="chip" id="shuffleBtn">순서 섞기</button>
+      <button class="chip" id="numsBtn">숫자 모음</button>
+      <button class="chip" id="resetBtn">기록 초기화</button>
+    </div>
+    <select class="sec" id="secSel" aria-label="영역 선택"><option value="">전체 영역 (11개)</option></select>
+  </div>
+</div>
+
+<div class="wrap">
+  <main id="list"></main>
+
+  <details id="numsBox">
+    <summary>꼭 외울 숫자 모음</summary>
+    <table id="numTbl"></table>
+  </details>
+
+  <p class="note">현행 「전파법」(2026.10.22 시행)·「전파법 시행령」(2026.10.20 개정) 조문으로 만든 예상문제입니다. 기출이 아니며 ITU 전파규칙·무선설비규칙은 포함하지 않았습니다. 합격 기준(면제교육 이수 시): 전파법규 20문항 중 12문항(60점) 이상. 풀이 기록은 이 기기의 브라우저에만 저장됩니다.</p>
+</div>
+
+<nav class="nav" aria-label="문제 이동">
+  <div class="nav-in">
+    <button id="prevBtn">이전</button>
+    <span class="pos" id="pos">1 / 100</span>
+    <button id="nextBtn" class="primary">다음</button>
+  </div>
+</nav>
+
+<script>
+const DATA = {"sections": ["목적과 정의", "무선국 개설·허가·신고", "유효기간과 재허가", "시설자의 지위승계", "검사", "무선국의 운용·폐지·휴지", "통신방법·조난·혼신·통신보안·실험국·아마추어국", "무선국의 업무와 분류", "무선종사자", "행정처분·과징금·청문", "벌칙"], "qs": [{"n": 1, "sec": "목적과 정의", "q": "전파법의 목적에 해당하지 않는 것은?", "opts": ["전파의 효율적이고 안전한 이용 및 관리", "전파이용과 전파에 관한 기술의 개발 촉진", "전파 관련 분야의 진흥과 공공복리의 증진", "전파 관련 사업자의 영업이익 보장"], "a": 3, "exp": "목적은 효율적·안전한 이용·관리, 기술개발 촉진, 진흥과 공공복리 증진", "ref": "법 제1조"}, {"n": 2, "sec": "목적과 정의", "q": "전파법상 \"전파\"는 인공적인 유도 없이 공간에 퍼져 나가는 전자파로서 누가 정한 범위의 주파수를 가진 것인가?", "opts": ["과학기술정보통신부장관", "국제전기통신연합", "방송미디어통신위원회", "한국방송통신전파진흥원"], "a": 1, "exp": "국제전기통신연합(ITU)이 정한 범위의 주파수", "ref": "법 제2조①1"}, {"n": 3, "sec": "목적과 정의", "q": "\"특정한 주파수의 용도를 정하는 것\"을 뜻하는 용어는?", "opts": ["주파수할당", "주파수지정", "주파수분배", "주파수 사용승인"], "a": 2, "exp": "주파수분배 = 용도를 정하는 것", "ref": "법 제2조①2"}, {"n": 4, "sec": "목적과 정의", "q": "\"특정한 주파수를 이용할 수 있는 권리를 특정인에게 주는 것\"은?", "opts": ["주파수분배", "주파수할당", "주파수지정", "주파수재배치"], "a": 1, "exp": "주파수할당 = 권리를 특정인에게 주는 것", "ref": "법 제2조①3"}, {"n": 5, "sec": "목적과 정의", "q": "\"허가나 신고로 개설하는 무선국에서 이용할 특정한 주파수를 지정하는 것\"은?", "opts": ["주파수지정", "주파수할당", "주파수분배", "주파수 공동사용"], "a": 0, "exp": "주파수지정 = 허가·신고 무선국이 이용할 주파수 지정", "ref": "법 제2조①4"}, {"n": 6, "sec": "목적과 정의", "q": "안보·외교적 목적 또는 국제적·국가적 행사 등을 위하여 특정한 주파수의 사용을 허용하는 것은?", "opts": ["주파수할당", "주파수 사용승인", "주파수지정", "주파수회수"], "a": 1, "exp": "주파수 사용승인", "ref": "법 제2조①4의2"}, {"n": 7, "sec": "목적과 정의", "q": "주파수회수를 하고 이를 대체하여 주파수할당, 주파수지정 또는 주파수 사용승인을 하는 것은?", "opts": ["주파수재배치", "주파수분배", "주파수 공동사용", "주파수지정"], "a": 0, "exp": "주파수재배치 = 회수 + 대체 할당·지정·승인", "ref": "법 제2조①4의4"}, {"n": 8, "sec": "목적과 정의", "q": "\"둘 이상의 주파수 이용자가 동일한 범위의 주파수를 상호 배제하지 아니하고 사용하는 것\"은?", "opts": ["주파수재배치", "주파수 공동사용", "주파수할당", "주파수분배"], "a": 1, "exp": "주파수 공동사용", "ref": "법 제2조①4의5"}, {"n": 9, "sec": "목적과 정의", "q": "전파법상 \"무선설비\"의 정의로 옳은 것은?", "opts": ["전파를 보내거나 받는 전기적 시설", "무선설비와 무선설비를 조작하는 자의 총체", "전파를 이용하여 정보를 보내거나 받는 것", "방송통신설비에 사용하는 장치·기기·부품"], "a": 0, "exp": "②는 무선국, ③은 무선통신의 정의", "ref": "법 제2조①5"}, {"n": 10, "sec": "목적과 정의", "q": "\"무선국\"에서 제외되는 것은?", "opts": ["수신전용 무선국", "실험국", "방송수신만을 목적으로 하는 것", "아마추어국"], "a": 2, "exp": "방송수신만을 목적으로 하는 것은 무선국에서 제외", "ref": "법 제2조①6"}, {"n": 11, "sec": "목적과 정의", "q": "\"시설자\"의 정의로 옳은 것은?", "opts": ["무선설비를 제작한 자", "과학기술정보통신부장관으로부터 무선국의 개설허가를 받거나 개설신고를 하고 무선국을 개설한 자", "무선설비를 조작하는 무선종사자", "무선설비를 판매하는 자"], "a": 1, "exp": "허가를 받거나 신고를 하고 무선국을 개설한 자", "ref": "법 제2조①8"}, {"n": 12, "sec": "목적과 정의", "q": "\"우주국과 통신을 하기 위하여 지구에 개설한 무선국\"은?", "opts": ["우주국", "지구국", "위성망", "기지국"], "a": 1, "exp": "우주국은 인공위성에 개설한 무선국", "ref": "법 제2조①10·11"}, {"n": 13, "sec": "목적과 정의", "q": "\"위성망\"의 정의로 옳은 것은?", "opts": ["인공위성에 개설한 무선국", "우주국의 위치나 궤적", "우주국과 지구국으로 구성된 통신망의 총체", "위성방송을 수신하는 설비"], "a": 2, "exp": "위성주파수와 위성궤도 포함", "ref": "법 제2조①12"}, {"n": 14, "sec": "목적과 정의", "q": "전자파장해 정의에서 \"전자파에너지가 전원선을 통하여 흐르는 것\"을 뜻하는 용어는?", "opts": ["방사", "전도", "유도", "반사"], "a": 1, "exp": "방사 = 공간으로 퍼짐, 전도 = 전원선을 통해 흐름", "ref": "법 제2조①14"}, {"n": 15, "sec": "목적과 정의", "q": "\"무선종사자\"의 정의로 옳은 것은?", "opts": ["무선국을 개설한 자", "무선설비를 조작하거나 설치공사를 하는 사람으로서 기술자격증을 발급받은 사람", "무선설비를 이용하는 모든 사람", "무선국에서 근무하는 모든 직원"], "a": 1, "exp": "제70조②에 따라 기술자격증을 발급받은 사람", "ref": "법 제2조①7"}, {"n": 16, "sec": "무선국 개설·허가·신고", "q": "무선국을 개설하려는 자는 원칙적으로 누구의 허가를 받아야 하는가?", "opts": ["국무총리", "과학기술정보통신부장관", "한국방송통신전파진흥원장", "시·도지사"], "a": 1, "exp": "과학기술정보통신부장관의 허가", "ref": "법 제19조①"}, {"n": 17, "sec": "무선국 개설·허가·신고", "q": "신고를 통하여 개설할 수 있는 무선국(법 제19조의2제1항)에 해당하지 않는 것은?", "opts": ["발사하는 전파가 미약한 무선국", "수신전용의 무선국", "이동멀티미디어방송을 위하여 개설하는 무선국", "실험국"], "a": 3, "exp": "신고 대상: 미약/설치공사 불요, 수신전용, 주파수할당 받은 자의 전기통신역무용, 이동멀티미디어방송", "ref": "법 제19조의2①"}, {"n": 18, "sec": "무선국 개설·허가·신고", "q": "신고하지 아니하고 개설할 수 있는 무선국은?", "opts": ["발사하는 전파가 미약한 무선국 등으로서 대통령령으로 정하는 무선국", "방송국", "해안국", "항공국"], "a": 0, "exp": "미약한 무선국 등 대통령령으로 정하는 무선국", "ref": "법 제19조의2②"}, {"n": 19, "sec": "무선국 개설·허가·신고", "q": "전파법을 위반하여 금고 이상의 실형을 선고받은 자는 그 집행이 끝나거나 집행을 받지 아니하기로 확정된 날부터 몇 년이 지나야 무선국을 개설할 수 있는가?", "opts": ["1년", "2년", "3년", "5년"], "a": 2, "exp": "3년", "ref": "법 제20조①4"}, {"n": 20, "sec": "무선국 개설·허가·신고", "q": "무선국 개설의 결격사유에 해당하지 않는 것은?", "opts": ["대한민국의 국적을 가지지 아니한 자", "외국정부 또는 그 대표자", "외국의 법인 또는 단체", "전파법을 위반하여 벌금형을 선고받은 자"], "a": 3, "exp": "결격사유는 \"금고 이상\"의 형. 벌금형은 해당 없음", "ref": "법 제20조①"}, {"n": 21, "sec": "무선국 개설·허가·신고", "q": "외국인 등 결격사유(법 제20조제1항제1~3호)가 적용되지 않는 무선국이 아닌 것은?", "opts": ["실험국", "「선박안전법」 등에 따른 선박의 무선국", "국내에서 열리는 국제적 행사를 위하여 그 기간에만 허용하는 무선국", "지상파방송국"], "a": 3, "exp": "실험국, 선박 무선국, 국제·국가 행사 기간 무선국 등은 예외. 방송국은 예외 목록에 없음", "ref": "법 제20조②"}, {"n": 22, "sec": "무선국 개설·허가·신고", "q": "\"과학이나 기술발전을 위한 실험에만 사용하는 무선국\"은?", "opts": ["실험국", "아마추어국", "비상국", "고정국"], "a": 0, "exp": "실험국", "ref": "법 제20조②1"}, {"n": 23, "sec": "무선국 개설·허가·신고", "q": "\"개인적으로 무선기술에 흥미를 가지고 자기훈련과 기술연구에만 사용하는 무선국\"은?", "opts": ["실험국", "아마추어국", "간이무선국", "육상국"], "a": 1, "exp": "아마추어국", "ref": "법 제20조②4나"}, {"n": 24, "sec": "무선국 개설·허가·신고", "q": "무선국의 개설조건(법 제20조의2)으로 옳지 않은 것은?", "opts": ["통신사항이 개설목적에 적합할 것", "개설목적 달성에 필요한 최대한의 주파수 및 안테나공급전력을 사용할 것", "이미 개설되어 있는 다른 무선국의 운용에 지장을 주지 아니할 것", "개설목적·통신사항 및 통신상대방의 선정이 법령에 위반되지 아니할 것"], "a": 1, "exp": "\"최소한\"의 주파수 및 안테나공급전력", "ref": "법 제20조의2①4"}, {"n": 25, "sec": "무선국 개설·허가·신고", "q": "개설조건상 무선설비는 무엇에 지장을 주지 아니하는 장소에 설치하여야 하는가?", "opts": ["인명·재산 및 항공의 안전", "방송수신", "도시 미관", "주변 상권"], "a": 0, "exp": "인명·재산 및 항공의 안전", "ref": "법 제20조의2①5"}, {"n": 26, "sec": "무선국 개설·허가·신고", "q": "무선국 개설허가 신청 시 과학기술정보통신부장관의 심사사항이 아닌 것은?", "opts": ["주파수지정이 가능한지 여부", "무선설비가 기술기준에 적합한지 여부", "무선종사자 배치계획이 자격·정원배치기준에 적합한지 여부", "신청인의 재무상태가 건전한지 여부"], "a": 3, "exp": "심사: 주파수지정 가능 여부, 기술기준, 무선종사자 배치계획, 개설조건", "ref": "법 제21조②"}, {"n": 27, "sec": "무선국 개설·허가·신고", "q": "개설허가 시 발급하는 허가증에 반드시 적어야 하는 것은?", "opts": ["무선국의 준공기한", "시설자의 학력", "무선설비의 구입가격", "무선종사자의 경력"], "a": 0, "exp": "준공기한과 대통령령으로 정하는 사항", "ref": "법 제21조④"}, {"n": 28, "sec": "무선국 개설·허가·신고", "q": "전기통신역무를 제공받기 위한 무선국으로서 대통령령으로 정하는 무선국은 무엇을 한 때 허가를 받은 것으로 보는가?", "opts": ["무선설비를 구입한 때", "전기통신역무를 제공하는 자와 이용계약을 체결한 때", "준공신고를 한 때", "전파사용료를 낸 때"], "a": 1, "exp": "이용계약 체결 시 허가받은 것으로 봄 (예: 휴대전화)", "ref": "법 제19조②"}, {"n": 29, "sec": "무선국 개설·허가·신고", "q": "준공기한 연장 시 총 연장기간은 얼마를 초과할 수 없는가?", "opts": ["3개월", "6개월", "1년", "2년"], "a": 2, "exp": "총 연장기간 1년 초과 불가", "ref": "법 제24조③"}, {"n": 30, "sec": "무선국 개설·허가·신고", "q": "허가증에 적힌 준공기한(연장한 경우 그 기한)이 지난 후 며칠이 지날 때까지 준공신고를 마치지 아니하면 무선국 처분 사유가 되는가?", "opts": ["7일", "15일", "30일", "60일"], "a": 2, "exp": "준공기한 경과 후 30일", "ref": "법 제72조②3"}, {"n": 31, "sec": "유효기간과 재허가", "q": "법률상 무선국 개설허가의 유효기간은 몇 년 이내의 범위에서 대통령령으로 정하는가?", "opts": ["3년", "5년", "7년", "10년"], "a": 2, "exp": "개설허가 7년 이내 (주파수 사용승인은 10년 이내)", "ref": "법 제22조①"}, {"n": 32, "sec": "유효기간과 재허가", "q": "의무선박국과 의무항공기국의 개설허가 유효기간은?", "opts": ["1년", "5년", "7년", "무기한"], "a": 3, "exp": "의무선박국·의무항공기국은 무기한", "ref": "법 제22조②"}, {"n": 33, "sec": "유효기간과 재허가", "q": "실험국의 개설허가 유효기간은?", "opts": ["1년", "3년", "5년", "7년"], "a": 0, "exp": "실험국 및 실용화시험국 1년", "ref": "시행령 제36조①1"}, {"n": 34, "sec": "유효기간과 재허가", "q": "아마추어국·기지국·육상이동국·해안국의 개설허가 유효기간은?", "opts": ["1년", "3년", "5년", "7년"], "a": 2, "exp": "5년", "ref": "시행령 제36조①2"}, {"n": 35, "sec": "유효기간과 재허가", "q": "위성방송국의 개설허가 유효기간은?", "opts": ["3년", "5년", "7년", "10년"], "a": 2, "exp": "방송국 5년, 위성방송국·위성방송보조국 7년", "ref": "시행령 제36조①2의2"}, {"n": 36, "sec": "유효기간과 재허가", "q": "무선국 개설허가의 유효기간은 원칙적으로 언제부터 기산하는가?", "opts": ["허가 신청일", "허가증 발급일", "검사증명서를 발급받은 날", "준공신고일"], "a": 2, "exp": "검사증명서를 발급받은 날 (준공검사 면제 무선국은 허가받은 날)", "ref": "법 제22조③2"}, {"n": 37, "sec": "유효기간과 재허가", "q": "재허가를 받으려는 자는 유효기간 만료 전 언제 신청하여야 하는가? (유효기간 1년 초과 무선국)", "opts": ["1개월 이상 2개월 이내", "2개월 이상 4개월 이내", "3개월 이상 6개월 이내", "6개월 이상 1년 이내"], "a": 1, "exp": "2개월 이상 4개월 이내 (유효기간 1년이면 2개월 전까지)", "ref": "시행령 제38조①"}, {"n": 38, "sec": "유효기간과 재허가", "q": "과학기술정보통신부장관은 개설허가 유효기간이 끝나는 날의 언제까지 시설자에게 재허가 절차를 미리 알려야 하는가?", "opts": ["1개월 전", "2개월 전", "4개월 전", "1년 전"], "a": 2, "exp": "4개월 전까지 (주파수 사용승인 재승인은 1년 전까지)", "ref": "시행령 제36조⑤"}, {"n": 39, "sec": "시설자의 지위승계", "q": "시설자의 지위를 승계하는 자가 아닌 것은?", "opts": ["사업을 양도하면서 무선국을 양도한 경우의 양수인", "합병 후 존속하는 법인", "시설자가 사망한 경우의 상속인", "무선국에 새로 배치된 무선종사자"], "a": 3, "exp": "양수인, 합병법인, 상속인, 선박·항공기 운항자 변경", "ref": "법 제23조①"}, {"n": 40, "sec": "시설자의 지위승계", "q": "시설자가 사망하여 상속인이 지위를 승계하는 경우 필요한 절차는?", "opts": ["과학기술정보통신부장관의 인가", "과학기술정보통신부장관에게 신고", "법원의 허가", "별도 절차 없음"], "a": 1, "exp": "상속·선박/항공기 운항자 변경 = 신고, 양수·합병 = 인가", "ref": "법 제23조②③"}, {"n": 41, "sec": "시설자의 지위승계", "q": "양수·합병에 따른 지위승계 인가 신청을 받은 과학기술정보통신부장관은 며칠 이내에 인가 여부를 통지하여야 하는가?", "opts": ["7일", "10일", "14일", "30일"], "a": 0, "exp": "7일 이내 (통지 없으면 기간 끝난 다음 날 인가 간주)", "ref": "법 제23조④⑤"}, {"n": 42, "sec": "시설자의 지위승계", "q": "합병이나 상속으로 지위를 승계한 자가 2명 이상인 경우 해야 할 일은?", "opts": ["무선국을 폐지", "그중 1명을 대표자로 선정", "무선국을 분할", "재허가 신청"], "a": 1, "exp": "1명을 대표자로 선정", "ref": "법 제23조⑦"}, {"n": 43, "sec": "검사", "q": "준공검사에서 확인하는 사항은?", "opts": ["무선설비의 가격과 제조사", "기술기준 및 무선종사자의 자격·정원배치기준 적합 여부", "시설자의 신용도", "통신 내용의 적법성"], "a": 1, "exp": "기술기준 및 무선종사자의 자격·정원배치기준", "ref": "법 제24조①"}, {"n": 44, "sec": "검사", "q": "정기검사는 몇 년의 범위에서 무선국별로 대통령령으로 정하는 기간마다 실시하는가?", "opts": ["1년", "3년", "5년", "7년"], "a": 2, "exp": "5년의 범위", "ref": "법 제24조⑤"}, {"n": 45, "sec": "검사", "q": "정기검사 유효기간이 1년인 무선국은?", "opts": ["아마추어국", "실험국", "기지국", "방송국"], "a": 1, "exp": "1년: 의무선박국·의무항공기국·실험국·실용화시험국", "ref": "시행령 제44조①1"}, {"n": 46, "sec": "검사", "q": "총톤수 40톤 미만인 어선의 의무선박국의 정기검사 유효기간은?", "opts": ["1년", "2년", "3년", "5년"], "a": 1, "exp": "2년", "ref": "시행령 제44조①2가"}, {"n": 47, "sec": "검사", "q": "정기검사 유효기간이 5년인 무선국의 정기검사 시기는?", "opts": ["만료일 전후 1개월 이내", "만료일 전후 2개월 이내", "만료일 전후 3개월 이내", "만료일 전후 6개월 이내"], "a": 3, "exp": "전후 6개월 이내", "ref": "시행령 제45조①3"}, {"n": 48, "sec": "검사", "q": "정기검사 유효기간이 1년인 무선국(실험국 등)의 정기검사 시기는?", "opts": ["만료일 전후 1개월 이내", "만료일 전후 2개월 이내", "만료일 전후 3개월 이내", "만료일 전후 6개월 이내"], "a": 1, "exp": "전후 2개월 이내", "ref": "시행령 제45조①1"}, {"n": 49, "sec": "검사", "q": "준공검사 결과 부적합한 무선국은 언제까지 재검사를 받아야 하는가?", "opts": ["결과 통보일부터 1개월 이내", "3개월 이내", "6개월 이내", "1년 이내"], "a": 2, "exp": "결과를 통보받은 날부터 6개월 이내 (2026.10.20 개정)", "ref": "시행령 제43조의2"}, {"n": 50, "sec": "검사", "q": "시설자·무선설비·설치장소 및 무선종사자의 배치 등이 허가·신고사항과 일치하는지 대조·확인하는 검사는?", "opts": ["성능검사", "대조검사", "표본검사", "준공검사"], "a": 1, "exp": "성능검사는 안테나공급전력·주파수·불요발사 등 성능 검사", "ref": "시행령 제45조③"}, {"n": 51, "sec": "검사", "q": "정기검사를 하는 기관의 장은 정기검사일 등을 언제까지 시설자에게 통보하여야 하는가?", "opts": ["7일 전", "15일 전", "1개월 전", "3개월 전"], "a": 2, "exp": "정기검사일 1개월 전까지", "ref": "시행령 제45조④"}, {"n": 52, "sec": "검사", "q": "대통령령으로 정하는 무선국의 시설자가 스스로 확인한 결과를 제출하여 준공검사를 갈음할 수 있는 서류는?", "opts": ["무선국자기적합확인서", "적합성평가확인서", "시험성적서", "허가증"], "a": 0, "exp": "무선국자기적합확인서", "ref": "법 제24조②"}, {"n": 53, "sec": "무선국의 운용·폐지·휴지", "q": "준공검사를 받아야 하는 무선국은 언제부터 운용할 수 있는가? (면제·생략 제외)", "opts": ["허가를 받은 즉시", "준공신고 후 즉시", "준공검사를 받은 후", "정기검사를 받은 후"], "a": 2, "exp": "준공검사를 받은 후 운용", "ref": "법 제25조①"}, {"n": 54, "sec": "무선국의 운용·폐지·휴지", "q": "허가증 등에 적힌 사항의 범위를 벗어나 운용할 수 있는 통신이 아닌 것은?", "opts": ["조난통신", "긴급통신", "안전통신", "업무연락통신"], "a": 3, "exp": "예외: 조난·긴급·안전·비상통신, 대통령령으로 정하는 통신", "ref": "법 제25조②"}, {"n": 55, "sec": "무선국의 운용·폐지·휴지", "q": "\"선박이나 항공기가 중대하고 급박한 위기에 처한 경우에 ( )를 먼저 보낸 후에 하는 무선통신\"은 조난통신이다. ( )에 알맞은 것은?", "opts": ["긴급신호", "안전신호", "조난신호", "호출신호"], "a": 2, "exp": "조난신호", "ref": "법 제25조②1"}, {"n": 56, "sec": "무선국의 운용·폐지·휴지", "q": "선박이나 항공기가 중대하고 급박한 위험에 처할 \"우려가\" 있는 경우 등에 긴급신호를 먼저 보낸 후 하는 통신은?", "opts": ["조난통신", "긴급통신", "안전통신", "비상통신"], "a": 1, "exp": "\"우려\" = 긴급통신", "ref": "법 제25조②2"}, {"n": 57, "sec": "무선국의 운용·폐지·휴지", "q": "선박이나 항공기의 항행 중에 발생하는 중대한 위험을 \"예방\"하기 위하여 하는 통신은?", "opts": ["조난통신", "긴급통신", "안전통신", "비상통신"], "a": 2, "exp": "\"예방\" = 안전통신", "ref": "법 제25조②3"}, {"n": 58, "sec": "무선국의 운용·폐지·휴지", "q": "지진·태풍·홍수 등 비상사태 시 유선통신을 이용할 수 없거나 곤란할 때 인명구조·재해구호 등을 위하여 하는 통신은?", "opts": ["비상통신", "긴급통신", "안전통신", "조난통신"], "a": 0, "exp": "비상통신", "ref": "법 제25조②4"}, {"n": 59, "sec": "무선국의 운용·폐지·휴지", "q": "무선국의 운용을 몇 개월 이상 휴지하려는 경우 신고하여야 하는가?", "opts": ["1개월", "3개월", "6개월", "1년"], "a": 0, "exp": "1개월 이상 휴지, 1개월 이상 휴지 후 재운용 시 신고", "ref": "법 제25조의2①"}, {"n": 60, "sec": "무선국의 운용·폐지·휴지", "q": "무선국의 휴지기간은?", "opts": ["1개월 이상 6개월 이내", "1개월 이상 1년 이내", "3개월 이상 1년 이내", "6개월 이상 2년 이내"], "a": 1, "exp": "1개월 이상 1년 이내", "ref": "시행령 제51조②"}, {"n": 61, "sec": "무선국의 운용·폐지·휴지", "q": "정당한 사유 없이 계속하여 몇 개월 이상 무선국의 운용을 휴지하면 처분 사유가 되는가?", "opts": ["1개월", "3개월", "6개월", "1년"], "a": 2, "exp": "6개월 이상", "ref": "법 제72조②7"}, {"n": 62, "sec": "무선국의 운용·폐지·휴지", "q": "시설자가 무선국의 폐지를 신고한 때의 효과는?", "opts": ["허가 또는 개설신고의 효력이 소멸", "1년간 효력 정지", "재허가 대상이 됨", "아무 효과 없음"], "a": 0, "exp": "허가 또는 개설신고 효력 소멸", "ref": "법 제25조의2②"}, {"n": 63, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "무선국의 호출방법·응답방법·운용시간·청취의무 등 통신방법은 누가 정하여 고시하는가?", "opts": ["대통령", "과학기술정보통신부장관", "국제전기통신연합", "한국방송통신전파진흥원"], "a": 1, "exp": "과학기술정보통신부장관 고시", "ref": "법 제27조"}, {"n": 64, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "해안국·선박국·항공국·항공기국이 조난통신을 수신한 경우의 조치로 옳은 것은?", "opts": ["업무통신을 마친 후 응답", "다른 모든 무선통신에 우선하여 즉시 응답하고 구조에 가장 편리한 위치의 무선국에 통보", "과학기술정보통신부장관의 승인 후 응답", "해양경찰에만 통보하고 응답하지 않음"], "a": 1, "exp": "다른 모든 무선통신에 우선하여 즉시 응답", "ref": "법 제28조②"}, {"n": 65, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "\"선박국과 통신을 하기 위하여 육상에 개설하고 이동하지 아니하는 무선국\"은?", "opts": ["해안국", "항공국", "기지국", "고정국"], "a": 0, "exp": "해안국", "ref": "법 제28조②1"}, {"n": 66, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "\"항공기국과 통신을 하기 위하여 육상에 개설하고 이동하지 아니하는 무선국\"은?", "opts": ["해안국", "항공국", "무선항행육상국", "육상국"], "a": 1, "exp": "항공국", "ref": "법 제28조②3"}, {"n": 67, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "선박국이 해안국에 그 사실을 알려야 하는 경우는?", "opts": ["출항할 때", "해안국의 통신권에 들어왔을 때와 벗어날 때", "입항 후 24시간 이내", "기상이 악화된 때"], "a": 1, "exp": "통신권에 들어왔을 때와 벗어날 때", "ref": "법 제28조③"}, {"n": 68, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "다른 무선국의 운용을 저해할 혼신을 하지 않도록 운용해야 하는 의무의 예외가 되는 통신이 아닌 것은?", "opts": ["조난통신", "비상통신", "안전통신", "시험통신"], "a": 3, "exp": "예외는 조난·긴급·안전·비상통신", "ref": "법 제29조②"}, {"n": 69, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "공공안전을 위하여 전파차단장치를 사용할 수 있는 경우가 아닌 것은?", "opts": ["「대통령 등의 경호에 관한 법률」에 따른 안전활동", "국가안전보장 목적의 군사활동", "대테러활동", "민간 행사장의 무허가 드론 촬영 차단"], "a": 3, "exp": "경호, 군사활동, 대테러, 공항시설법 위반 제지, 원자력 방호 및 관련 경찰활동만", "ref": "법 제29조③"}, {"n": 70, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "전파차단장치를 제조·수입 또는 판매하려는 자가 받아야 하는 것은?", "opts": ["과학기술정보통신부장관의 인가", "적합성평가 면제", "경찰청장 허가", "국방부장관 승인"], "a": 0, "exp": "과학기술정보통신부장관의 인가", "ref": "법 제29조⑧"}, {"n": 71, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "통신보안에 관한 사항을 지켜야 하는 자(법 제30조)가 아닌 것은?", "opts": ["시설자", "무선통신 업무에 종사하는 자", "무선설비를 이용하는 자", "방송을 수신만 하는 시청자"], "a": 3, "exp": "시설자, 무선통신 업무 종사자, 무선설비 이용자", "ref": "법 제30조①"}, {"n": 72, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "법 제30조에서 예로 든 통신보안 준수 사항은?", "opts": ["통신보안 책임자의 지정, 통신보안 교육의 이수", "무선설비 보험 가입", "전파사용료 납부", "정기검사 수검"], "a": 0, "exp": "통신보안 책임자 지정, 통신보안 교육 이수 등", "ref": "법 제30조①"}, {"n": 73, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "실험국이 하여서는 아니 되는 것은?", "opts": ["국내 다른 실험국과의 통신", "외국의 실험국과의 통신", "실험 목적의 전파 발사", "정기검사 수검"], "a": 1, "exp": "외국의 실험국과 통신 금지", "ref": "법 제31조①"}, {"n": 74, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "실험국과 아마추어국이 통신할 때 금지되는 것은?", "opts": ["평문 사용", "암어 사용", "호출부호 사용", "한국어 사용"], "a": 1, "exp": "암어 사용 금지", "ref": "법 제31조②"}, {"n": 75, "sec": "통신방법·조난·혼신·통신보안·실험국·아마추어국", "q": "아마추어국이 제3자를 위한 통신을 할 수 있는 예외는?", "opts": ["영리 목적의 중계", "다른 아마추어국을 개설한 자를 위한 통신이나 비상·재난구조를 위한 통신", "가족 간의 연락", "회사 업무 연락"], "a": 1, "exp": "다른 아마추어국 개설자를 위한 통신, 비상·재난구조 통신", "ref": "법 제31조③"}, {"n": 76, "sec": "무선국의 업무와 분류", "q": "\"육상이동국과의 통신 또는 이동중계국의 중계에 의한 통신을 하기 위하여 육상의 일정한 고정지점에 개설하는 무선국\"은?", "opts": ["기지국", "육상국", "고정국", "해안국"], "a": 0, "exp": "기지국", "ref": "시행령 제29조①9"}, {"n": 77, "sec": "무선국의 업무와 분류", "q": "\"일정한 고정지점 간의 무선통신업무\"는?", "opts": ["고정업무", "이동업무", "육상이동업무", "무선조정업무"], "a": 0, "exp": "고정업무", "ref": "시행령 제28조①1"}, {"n": 78, "sec": "무선국의 업무와 분류", "q": "육상이동업무에 해당하지 않는 것은?", "opts": ["기지국과 육상이동국 간의 무선통신", "육상이동국 상호 간의 무선통신", "이동중계국의 중계에 의한 이들 상호 간의 무선통신", "선박국과 해안국 간의 무선통신"], "a": 3, "exp": "④는 해상이동업무", "ref": "시행령 제28조①3·4"}, {"n": 79, "sec": "무선국의 업무와 분류", "q": "무선측위업무는 크게 무엇으로 나뉘는가?", "opts": ["무선항행업무와 무선탐지업무", "고정업무와 이동업무", "방송업무와 통신업무", "위성업무와 지상업무"], "a": 0, "exp": "무선항행업무 / 무선탐지업무", "ref": "시행령 제28조①7"}, {"n": 80, "sec": "무선국의 업무와 분류", "q": "무선탐지업무의 정의는?", "opts": ["선박을 위한 무선항행업무", "무선항행업무 외의 무선측위업무", "항공기를 위한 무선항행업무", "기상 관측을 위한 업무"], "a": 1, "exp": "무선항행업무 외의 무선측위업무", "ref": "시행령 제28조①7나"}, {"n": 81, "sec": "무선국의 업무와 분류", "q": "이동체에 개설한 무선국에 전파를 발사하여 그 전파발사 위치에서의 방향 또는 방위를 그 무선국이 결정할 수 있게 하는 무선항행업무는?", "opts": ["무선표지업무", "무선탐지업무", "무선조정업무", "기상원조업무"], "a": 0, "exp": "무선표지업무", "ref": "시행령 제28조①7가3)"}, {"n": 82, "sec": "무선국의 업무와 분류", "q": "비상통신업무만을 하는 것을 목적으로 개설하는 무선국은?", "opts": ["비상국", "해안국", "아마추어국", "실험국"], "a": 0, "exp": "비상국", "ref": "시행령 제29조①28"}, {"n": 83, "sec": "무선국의 업무와 분류", "q": "선박의 선내통신, 구명정의 구조훈련 시 선박과 구명정 간 통신 등을 목적으로 해상이동업무를 하는 저전력 무선국은?", "opts": ["선박국", "선상통신국", "구명부기국", "해안국"], "a": 1, "exp": "선상통신국", "ref": "시행령 제29조①5"}, {"n": 84, "sec": "무선국의 업무와 분류", "q": "금전상의 이익을 목적으로 하지 않고 개인적인 무선기술의 흥미에 따라 자기훈련과 기술연구 목적으로 하는 통신업무는?", "opts": ["아마추어업무", "실험업무", "비상통신업무", "고정업무"], "a": 0, "exp": "아마추어업무", "ref": "시행령 제28조①12"}, {"n": 85, "sec": "무선국의 업무와 분류", "q": "기상 및 수상의 관측과 조사를 위한 무선통신업무는?", "opts": ["기상원조업무", "무선탐지업무", "표준주파수 및 시보업무", "전파천문업무"], "a": 0, "exp": "기상원조업무", "ref": "시행령 제28조①8"}, {"n": 86, "sec": "무선종사자", "q": "무선국의 무선설비를 운용하거나 공사할 수 있는 사람은 원칙적으로?", "opts": ["시설자", "무선종사자", "무선설비 제조자", "누구나"], "a": 1, "exp": "무선종사자가 아니면 운용·공사 불가", "ref": "법 제70조④"}, {"n": 87, "sec": "무선종사자", "q": "무선종사자가 아닌 자가 무선설비를 운용할 수 있는 경우(시행령 제116조)가 아닌 것은?", "opts": ["비상통신업무를 할 때 무선종사자를 종사시킬 수 없는 경우", "외국에서 아마추어무선기사 자격을 취득하고 지정 단체의 추천을 받아 국내에 잠시 머무르며 아마추어국을 운용하는 경우", "선박·항공기가 외국 항행 중이어서 무선종사자 승무가 불가능하고 외국정부 발급 증명서를 가진 경우", "무선종사자 자격시험을 준비 중인 사람이 연습하는 경우"], "a": 3, "exp": "①②③은 시행령 제116조에 있음", "ref": "시행령 제116조①"}, {"n": 88, "sec": "무선종사자", "q": "기술자격이 취소된 사람은 취소된 날부터 몇 년간 무선종사자 기술자격을 받을 수 없는가?", "opts": ["1년", "2년", "3년", "5년"], "a": 2, "exp": "3년", "ref": "법 제76조②"}, {"n": 89, "sec": "무선종사자", "q": "무선종사자에 대한 업무종사 정지 명령은 몇 년의 범위에서 할 수 있는가?", "opts": ["6개월", "1년", "2년", "3년"], "a": 3, "exp": "3년의 범위", "ref": "법 제76조①"}, {"n": 90, "sec": "무선종사자", "q": "무선종사자의 기술자격을 반드시 취소하여야 하는 경우는?", "opts": ["통신보안교육을 받지 아니한 경우", "거짓이나 그 밖의 부정한 방법으로 기술자격을 취득한 경우", "종사범위를 벗어나 운용한 경우", "호출방법을 지키지 아니한 경우"], "a": 1, "exp": "부정 취득은 반드시 취소", "ref": "법 제76조① 단서"}, {"n": 91, "sec": "무선종사자", "q": "무선종사자의 기술자격증을 다른 사람에게 빌려준 사람에 대한 벌칙은?", "opts": ["100만원 이하의 벌금", "1년 이하의 징역 또는 1천만원 이하의 벌금", "3년 이하의 징역 또는 3천만원 이하의 벌금", "5년 이하의 징역"], "a": 1, "exp": "1년 이하의 징역 또는 1천만원 이하의 벌금", "ref": "법 제86조 5의3"}, {"n": 92, "sec": "무선종사자", "q": "육상무선통신사의 종사범위로 옳은 것은? (KCA 안내 기준)", "opts": ["항공국의 모든 무선설비 운용", "육상에 개설한 무선국(항공국·방송국 제외)의 안테나공급전력 100와트 이하 무선설비(무선전신 제외)의 통신운용", "선박국의 무선전신 운용", "방송국의 송신설비 운용"], "a": 1, "exp": "육상 무선국(항공국·방송국 제외) 100W 이하 통신운용 등", "ref": "시행령 별표 17 (KCA 안내)"}, {"n": 93, "sec": "행정처분·과징금·청문", "q": "시설자의 위반 시 무선국의 운용정지 등을 명할 수 있는 기간은?", "opts": ["1개월 이내", "3개월 이내", "6개월 이내", "1년 이내"], "a": 2, "exp": "6개월 이내의 운용정지·운용허용시간·주파수·안테나공급전력 제한", "ref": "법 제72조②"}, {"n": 94, "sec": "행정처분·과징금·청문", "q": "무선국 개설허가를 반드시 취소하여야 하는 경우는?", "opts": ["전파사용료를 내지 아니한 경우", "거짓이나 그 밖의 부정한 방법으로 개설허가를 받은 경우", "수수료를 내지 아니한 경우", "6개월 이상 운용을 휴지한 경우"], "a": 1, "exp": "결격사유 해당, 거짓·부정 허가는 반드시 취소·폐지", "ref": "법 제72조② 단서"}, {"n": 95, "sec": "행정처분·과징금·청문", "q": "무선국 운용정지가 이용자에게 심한 불편을 주는 경우 그 정지를 갈음하여 부과할 수 있는 과징금은?", "opts": ["1천만원 이하", "3천만원 이하", "5천만원 이하", "5억원 이하"], "a": 1, "exp": "3천만원 이하 (지정시험기관 업무정지 갈음은 5억원 이하)", "ref": "법 제73조①"}, {"n": 96, "sec": "행정처분·과징금·청문", "q": "청문을 하여야 하는 처분이 아닌 것은?", "opts": ["무선종사자 기술자격의 취소", "무선국 개설허가의 취소", "주파수할당의 취소", "준공기한 연장 신청의 거부"], "a": 3, "exp": "청문 대상에 준공기한 연장 거부는 없음", "ref": "법 제77조"}, {"n": 97, "sec": "벌칙", "q": "선박이나 항공기의 조난이 없음에도 무선설비로 조난통신을 한 자(일반인)에 대한 벌칙은?", "opts": ["1년 이하의 징역", "3년 이하의 징역", "5년 이하의 징역", "10년 이하의 징역"], "a": 2, "exp": "일반인 5년 이하 징역 (무선통신 종사자는 10년 이하 또는 1억원 이하)", "ref": "법 제83조②③"}, {"n": 98, "sec": "벌칙", "q": "무선통신 업무에 종사하는 자로서 조난통신의 조치를 하지 아니하거나 지연시킨 자에 대한 벌칙은?", "opts": ["1년 이하의 징역 또는 1천만원 이하의 벌금", "3년 이하의 징역 또는 3천만원 이하의 벌금", "5년 이하의 징역 또는 5천만원 이하의 벌금", "10년 이하의 징역 또는 1억원 이하의 벌금"], "a": 3, "exp": "10년 이하의 징역 또는 1억원 이하의 벌금", "ref": "법 제81조①2"}, {"n": 99, "sec": "벌칙", "q": "기상 업무에 제공되는 무선국의 무선설비를 손괴하여 무선통신을 방해한 자에 대한 벌칙은?", "opts": ["3년 이하의 징역 또는 3천만원 이하의 벌금", "5년 이하의 징역 또는 5천만원 이하의 벌금", "10년 이하의 징역 또는 1억원 이하의 벌금", "1년 이상 15년 이하의 징역"], "a": 2, "exp": "전기통신·방송·치안·기상·전기공급·철도/선박/항공기 운행 업무 무선설비 → 10년/1억 (그 외 무선설비 5년/5천만원)", "ref": "법 제82조"}, {"n": 100, "sec": "벌칙", "q": "허가를 받지 아니하고 무선국(법 제19조제1항)을 개설하거나 운용한 자에 대한 벌칙은?", "opts": ["100만원 이하의 벌금", "1년 이하의 징역 또는 1천만원 이하의 벌금", "3년 이하의 징역 또는 3천만원 이하의 벌금", "10년 이하의 징역 또는 1억원 이하의 벌금"], "a": 2, "exp": "3년 이하의 징역 또는 3천만원 이하의 벌금", "ref": "법 제84조1"}], "nums": [["결격사유 경과기간", "3년"], ["개설허가 유효기간(법) / 주파수 사용승인(법)", "7년 이내 / 10년 이내"], ["실험국 / 일반 무선국 / 방송국 / 위성방송국 / 기타", "1년 / 5년 / 5년 / 7년 / 3년"], ["의무선박국·의무항공기국 허가", "무기한"], ["재허가 신청", "만료 전 2개월 이상 4개월 이내"], ["준공기한 연장 총기간", "1년"], ["준공기한 경과 후 미신고 처분", "30일"], ["재검사 기한", "결과 통보일부터 6개월"], ["정기검사 범위", "5년"], ["정기검사 시기 (1년 / 2·3년 / 5년 무선국)", "전후 2개월 / 3개월 / 6개월"], ["지위승계 인가 통지", "7일"], ["휴지 신고 / 휴지기간 / 처분", "1개월 이상 / 1개월~1년 / 계속 6개월 이상"], ["운용정지 등", "6개월 이내"], ["과징금", "3천만원 이하"], ["기술자격 취소 후 재취득 제한 / 업무종사 정지", "3년 / 3년 범위"], ["벌칙: 조난 조치 불이행·지연", "10년 / 1억"], ["벌칙: 허위 조난통신 (일반인 / 종사자)", "5년 / 10년·1억"], ["벌칙: 무허가 개설·운용", "3년 / 3천만원"], ["벌칙: 자격증 대여", "1년 / 1천만원"], ["벌칙: 국가기관 폭력 파괴 주장 통신", "1년 이상 15년 이하"]]};
+const MARKS = ["①","②","③","④"];
+const ROMAN = ["Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ","Ⅵ","Ⅶ","Ⅷ","Ⅸ","Ⅹ","Ⅺ"];
+const KEY = "jeonpa_quiz_v2";
+const BASE = DATA.qs.map(q => q.n);
+const byN = Object.fromEntries(DATA.qs.map(q => [q.n, q]));
+let state = {}, order = BASE.slice(), mode = "all", sec = "", view = "single", idx = 0;
+
+function load(){
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY) || "{}");
+    state = s.state || {};
+    if (Array.isArray(s.order) && s.order.length === BASE.length) order = s.order;
+    if (s.view) view = s.view; else view = window.matchMedia("(min-width: 760px)").matches ? "list" : "single";
+    if (typeof s.idx === "number") idx = s.idx;
+  } catch(e) { view = "single"; }
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify({state, order, view, idx})); } catch(e) {} }
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const isShuffled = () => order.join(",") !== BASE.join(",");
+
+function items(){
+  let it = order.map(n => byN[n]).filter(q => !sec || q.sec === sec);
+  if (mode === "todo") it = it.filter(q => !(q.n in state));
+  if (mode === "wrong") it = it.filter(q => (q.n in state) && state[q.n] !== q.a);
+  return it;
+}
+
+function stats(){
+  const nums = DATA.qs.filter(q => !sec || q.sec === sec).map(q => q.n);
+  let done = 0, ok = 0;
+  for (const n of nums) if (n in state){ done++; if (state[n] === byN[n].a) ok++; }
+  sDone.textContent = done; sTotal.textContent = nums.length;
+  sOk.textContent = ok; sBad.textContent = done - ok;
+  const rate = done ? Math.round(ok / done * 100) : null;
+  sRate.textContent = rate === null ? "-" : rate + "%";
+  sRate.style.color = rate === null ? "" : (rate >= 60 ? "var(--ok)" : "var(--bad)");
+  bar.style.width = (nums.length ? done / nums.length * 100 : 0) + "%";
+}
+
+function cardHTML(q){
+  const chosen = state[q.n], answered = chosen !== undefined, ok = answered && chosen === q.a;
+  const opts = q.opts.map((o, i) => {
+    let c = "opt";
+    if (answered){ if (i === q.a) c += " correct"; else if (i === chosen) c += " wrong"; }
+    return `<button class="${c}" data-n="${q.n}" data-i="${i}" ${answered ? "disabled" : ""}><span class="m">${MARKS[i]}</span><span>${esc(o)}</span></button>`;
+  }).join("");
+  const si = DATA.sections.indexOf(q.sec);
+  return `<article class="card" id="q${q.n}">
+    <div class="meta"><span>${ROMAN[si]}. ${esc(q.sec)}</span><span>${q.n}번</span></div>
+    <div class="q"><span class="num">${q.n}.</span>${esc(q.q)}</div>
+    <div class="opts">${opts}</div>
+    <div class="exp ${answered ? "show" : ""}">
+      ${answered ? `<span class="verdict ${ok ? "ok" : "bad"}">${ok ? "정답입니다" : "오답 · 정답은 " + MARKS[q.a]}</span>` : ""}
+      ${esc(q.exp)}<span class="ref">근거: ${esc(q.ref)}</span>
+    </div>
+  </article>`;
+}
+
+function emptyMsg(){ return `<p class="empty">${mode === "wrong" ? "틀린 문제가 없습니다 👍" : mode === "todo" ? "모두 풀었습니다" : "문제가 없습니다"}</p>`; }
+
+function render(scrollTop){
+  document.body.classList.toggle("single", view === "single");
+  viewBtn.textContent = view === "single" ? "목록으로" : "한 문제씩";
+  const it = items();
+  if (!it.length){ list.innerHTML = emptyMsg(); pos.textContent = "0 / 0"; prevBtn.disabled = nextBtn.disabled = true; stats(); return; }
+  if (view === "single"){
+    if (idx >= it.length) idx = it.length - 1;
+    if (idx < 0) idx = 0;
+    list.innerHTML = cardHTML(it[idx]);
+    pos.textContent = `${idx + 1} / ${it.length}`;
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === it.length - 1;
+    nextBtn.textContent = idx === it.length - 1 ? "마지막" : "다음";
+  } else {
+    let html = "", last = null;
+    for (const q of it){
+      if (!isShuffled() && q.sec !== last){ html += `<h2 class="sec-title">${ROMAN[DATA.sections.indexOf(q.sec)]}. ${esc(q.sec)}</h2>`; last = q.sec; }
+      html += cardHTML(q);
+    }
+    list.innerHTML = html;
+  }
+  stats();
+  if (scrollTop) window.scrollTo({top: 0});
+}
+
+list.addEventListener("click", e => {
+  const b = e.target.closest(".opt"); if (!b || b.disabled) return;
+  const n = +b.dataset.n; state[n] = +b.dataset.i; save();
+  if (view === "single" && mode !== "all"){
+    // 필터 모드에서는 답한 문제가 목록에서 빠질 수 있으므로 현재 카드만 갱신
+    document.getElementById("q" + n).outerHTML = cardHTML(byN[n]); stats();
+  } else {
+    document.getElementById("q" + n).outerHTML = cardHTML(byN[n]); stats();
+  }
+  if (navigator.vibrate) navigator.vibrate(state[n] === byN[n].a ? 15 : [20, 40, 20]);
+});
+
+function go(d){ idx += d; save(); render(true); }
+prevBtn.onclick = () => go(-1);
+nextBtn.onclick = () => go(1);
+
+document.querySelectorAll(".chip[data-mode]").forEach(b => b.addEventListener("click", () => {
+  mode = b.dataset.mode; idx = 0;
+  document.querySelectorAll(".chip[data-mode]").forEach(x => x.classList.toggle("on", x === b));
+  save(); render(true);
+}));
+secSel.onchange = e => { sec = e.target.value; idx = 0; save(); render(true); };
+viewBtn.onclick = () => { view = view === "single" ? "list" : "single"; save(); render(true); };
+shuffleBtn.onclick = () => {
+  if (isShuffled()) order = BASE.slice();
+  else { order = BASE.slice(); for (let i = order.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; } }
+  idx = 0; syncShuffle(); save(); render(true);
+};
+function syncShuffle(){ shuffleBtn.classList.toggle("on", isShuffled()); shuffleBtn.textContent = isShuffled() ? "번호순으로" : "순서 섞기"; }
+numsBtn.onclick = () => { numsBox.open = true; numsBox.scrollIntoView({behavior:"smooth"}); };
+resetBtn.onclick = () => {
+  if (!confirm("풀이 기록을 모두 지울까요?")) return;
+  state = {}; order = BASE.slice(); idx = 0; syncShuffle(); save(); render(true);
+};
+
+// 좌우 스와이프로 이동 (한 문제씩 모드)
+let sx = 0, sy = 0, st = 0;
+list.addEventListener("touchstart", e => { const t = e.touches[0]; sx = t.clientX; sy = t.clientY; st = Date.now(); }, {passive:true});
+list.addEventListener("touchend", e => {
+  if (view !== "single") return;
+  const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Date.now() - st < 600 && Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5){
+    const max = items().length - 1;
+    if (dx < 0 && idx < max) go(1); else if (dx > 0 && idx > 0) go(-1);
+  }
+}, {passive:true});
+
+DATA.sections.forEach((s, i) => { const o = document.createElement("option"); o.value = s; o.textContent = `${ROMAN[i]}. ${s}`; secSel.appendChild(o); });
+numTbl.innerHTML = DATA.nums.map(r => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("");
+load(); syncShuffle(); render(false);
+</script>
+</body>
+</html>
